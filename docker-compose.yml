@@ -4,5 +4,7 @@ services:
     image: livesporttalk-web-server
     ports:
       - "80:80"
+    volumes:
+      - ./app:/var/www/html
     environment:
       SITE_URL: http://localhost
