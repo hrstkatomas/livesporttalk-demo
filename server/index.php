@@ -2,13 +2,31 @@
 
 declare(strict_types=1);
 
+use Symfony\Component\Process\Process;
+require __DIR__ . '/vendor/autoload.php';
+
 require_once __DIR__ . '/helpers/PageRenderer.php';
+require_once __DIR__ . '/helpers/StatisticsLoader.php';
 
-$URL_PARAM_1 = $_SERVER['REQUEST_URI'];
+//echo PageRenderer::render('<div id="root"></div>',["/dist/index.js"]);
 
-if ($URL_PARAM_1 == '/dist/index.js') {
-    $file = file_get_contents('../dist/index.js');
+$statistics = StatisticsLoader::load();
+$props = json_encode(["statistics" => $statistics]); // second parameter: JSON_UNESCAPED_UNICODE?
+
+$path = __DIR__ . '/dist/serverRenderer.js';
+$process = Process::fromShellCommandline(command: "node {$path}", input: $props);
+$process->run();
+
+if (!$process->isSuccessful()) {
+    echo $process->getExitCode();
+    echo $process->getErrorOutput();
     exit;
 }
 
-echo PageRenderer::render('<div id="root"></div>',["/dist/index.js"]);
+$html = <<<EOQ
+    {$process->getOutput()}
+    <script type="text/javascript">
+        var props = {$props};
+    </script>
+EOQ;
+echo PageRenderer::render($html, ["/dist/clientHydrater.js", "/dist/styles.js"]);

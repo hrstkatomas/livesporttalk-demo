@@ -2,7 +2,8 @@
 
 declare(strict_types=1);
 
-final class PageRenderer {
+final class PageRenderer
+{
     /**
      * @param array<string> $scripts
      * @return string

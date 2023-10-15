@@ -12,3 +12,16 @@ RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf &&\
     a2ensite livesport-talk-site &&\
     service apache2 restart
 EXPOSE 80
+
+# install node
+ENV NODE_VERSION=18.18.2
+RUN apt install -y curl
+RUN case "$(uname -m)" in \
+    "x86_64" | "amd64") NODE_ARCH="x64" ;; \
+    "aarch64" | "arm64") NODE_ARCH="arm64" ;; \
+    *) echo "Unsupported architecture"; exit 1 ;; \
+    esac && \
+    URL="https://nodejs.org/dist/v${NODE_VERSION}/node-v${NODE_VERSION}-linux-${NODE_ARCH}.tar.xz" && \
+    echo $URL && \
+    curl -fsSL "https://nodejs.org/dist/v${NODE_VERSION}/node-v${NODE_VERSION}-linux-${NODE_ARCH}.tar.xz" | tar -xJ -C /usr/local --strip-components=1
+RUN node --version
