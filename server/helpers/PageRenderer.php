@@ -7,7 +7,7 @@ final class PageRenderer {
      * @param array<string> $scripts
      * @return string
      */
-    static function render(array $scripts = []): string
+    static function render(string $bodyContent, array $scripts = []): string
     {
         $scriptTags = [];
         foreach ($scripts as $script) {
@@ -30,7 +30,7 @@ final class PageRenderer {
             </head>
             <body>
                 <h1>Hello livesport talk people!</h1>
-                <div id="root"></div>
+                {$bodyContent}
             </body>
         </html>
         EOQ;
