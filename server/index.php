@@ -6,4 +6,9 @@ require_once __DIR__ . '/helpers/PageRenderer.php';
 
 $URL_PARAM_1 = $_SERVER['REQUEST_URI'];
 
-echo PageRenderer::render();
+if ($URL_PARAM_1 == '/dist/index.js') {
+    $file = file_get_contents('../dist/index.js');
+    exit;
+}
+
+echo PageRenderer::render(["/dist/index.js"]);

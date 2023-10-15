@@ -6,5 +6,6 @@ services:
       - "80:80"
     volumes:
       - ./server:/var/www/html
+      - ./dist:/var/www/html/dist
     environment:
       SITE_URL: http://localhost

@@ -1,0 +1,20 @@
+{
+  "compileOnSave": true,
+  "compilerOptions": {
+    "module": "esnext",
+    "target": "esnext",
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
+    "noImplicitAny": true,
+    "allowJs": true,
+    "lib": [
+      "es6",
+      "dom",
+    ],
+    "rootDirs": ["client"],
+    "jsx": "react",
+    "strict": true,
+  },
+  "include": ["client/**/*.ts", "client/**/*.tsx"],
+  "exclude": ["node_modules"]
+}

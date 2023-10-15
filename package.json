@@ -1,0 +1,43 @@
+{
+  "name": "livesporttalk-demo",
+  "version": "1.0.0",
+  "description": "Demo of points of view we consider during website development",
+  "scripts": {
+    "build": "webpack --mode=production --node-env=production",
+    "build:dev": "webpack --mode=development",
+    "build:prod": "webpack --mode=production --node-env=production",
+    "watch": "webpack --watch",
+    "serve": "webpack serve"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hrstkatomas/livesporttalk-demo.git"
+  },
+  "keywords": [
+    "statistics",
+    "websocket"
+  ],
+  "author": "Tomáš Hrstka",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/hrstkatomas/livesporttalk-demo/issues"
+  },
+  "homepage": "https://github.com/hrstkatomas/livesporttalk-demo#readme",
+  "devDependencies": {
+    "@types/react": "^18.2.25",
+    "@types/react-dom": "^18.2.10",
+    "css-loader": "^6.8.1",
+    "prettier": "^3.0.3",
+    "style-loader": "^3.3.3",
+    "ts-loader": "^9.5.0",
+    "typescript": "^5.2.2",
+    "webpack": "^5.89.0",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^4.15.1"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "rxjs": "^7.8.1"
+  }
+}
