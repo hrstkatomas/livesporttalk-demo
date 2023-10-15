@@ -5,15 +5,26 @@ import "@flashscore/web-component-library/colorVariables.css";
 import { requestStatistics } from "../mocks/statisticsApi/api";
 import { statisticsZodSchema } from "../utils/statisticsZodSchema";
 import { z } from "zod";
+import { BehaviorSubject, share, switchMap, timer } from "rxjs";
 
-const useStatistics = () => {
-	const [statistics, setStatistics] = React.useState<z.infer<typeof statisticsZodSchema> | null>(null);
-
-	useEffect(() => {
+const statsSubject = new BehaviorSubject<z.infer<typeof statisticsZodSchema> | null>(null);
+const observable = timer(0, 5_000).pipe(
+	switchMap(() =>
 		requestStatistics()
 			.then((response) => response.json())
-			.then((response) => statisticsZodSchema.parseAsync(response))
-			.then((statistics) => setStatistics(statistics));
+			.then((response) => statisticsZodSchema.parseAsync(response)),
+	),
+	share({ connector: () => statsSubject, resetOnRefCountZero: true }),
+);
+
+const useStatistics = () => {
+	const [statistics, setStatistics] = React.useState<z.infer<typeof statisticsZodSchema> | null>(
+		statsSubject.getValue(),
+	);
+
+	useEffect(() => {
+		const subscription = observable.subscribe(setStatistics);
+		return () => subscription.unsubscribe();
 	}, []);
 
 	return statistics;
