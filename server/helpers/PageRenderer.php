@@ -19,11 +19,18 @@ final class PageRenderer {
         <html lang="en">
             <head>
                 <title>Livesport talk site</title>
+                <meta charSet="utf-8" />
+                <meta name="viewport" content="width=device-width, initial-scale=1" />
                 {$impodedScriptTags}
+                <style>
+                    body {
+                        font-family: monospace;
+                    }
+                </style>
             </head>
             <body>
-                <h1>My App</h1>
-                <p>My App is running!</p>
+                <h1>Hello livesport talk people!</h1>
+                <div id="root"></div>
             </body>
         </html>
         EOQ;
