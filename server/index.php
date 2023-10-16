@@ -8,10 +8,10 @@ require __DIR__ . '/vendor/autoload.php';
 require_once __DIR__ . '/helpers/PageRenderer.php';
 require_once __DIR__ . '/helpers/StatisticsLoader.php';
 
-//echo PageRenderer::render('<div id="root"></div>',["/dist/index.js"]);
+//echo PageRenderer::render('<div id="root"></div>',["/dist/index.js"], ["/dist/index.css"]);
 
 $statistics = StatisticsLoader::load();
-$props = json_encode(["statistics" => $statistics]); // second parameter: JSON_UNESCAPED_UNICODE?
+$props = json_encode(["statistics" => $statistics]);
 
 $path = __DIR__ . '/dist/serverRenderer.js';
 $process = Process::fromShellCommandline(command: "node {$path}", input: $props);
@@ -29,4 +29,4 @@ $html = <<<EOQ
         var props = {$props};
     </script>
 EOQ;
-echo PageRenderer::render($html, ["/dist/clientHydrater.js", "/dist/styles.js"]);
+echo PageRenderer::render($html, ["/dist/clientHydrater.js"], ["/dist/index.css"]);

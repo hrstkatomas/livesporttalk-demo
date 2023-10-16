@@ -1,5 +1,7 @@
 import React, { useEffect } from "react";
 import { Statistics as StatisticsComponent } from "@flashscore/web-component-library";
+import "@flashscore/web-component-library/index.css";
+import "@flashscore/web-component-library/colorVariables.css";
 import { requestStatistics } from "../mocks/statisticsApi/api";
 import { statisticsZodSchema } from "../utils/statisticsZodSchema";
 import { z } from "zod";
@@ -32,6 +34,7 @@ const useStatistics = () => {
 export function Statistics() {
 	const statistics = useStatistics();
 
+	// TODO: prepare skeleton component
 	if (!statistics) return <div>Loading statistics...</div>;
 
 	return <StatisticsRenderer statistics={statistics} />;

@@ -1,16 +1,17 @@
 const path = require("path");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+
 const isProduction = process.env.NODE_ENV === "production";
 
 const config = {
 	entry: {
 		index: "./client/index.tsx",
 		clientHydrater: "./client/clientHydrater.tsx",
-		styles: ["@flashscore/web-component-library/index.css", "@flashscore/web-component-library/colorVariables.css"],
 	},
 	output: {
 		path: path.resolve(__dirname, "dist"),
 	},
-	plugins: [],
+	plugins: [new MiniCssExtractPlugin()],
 	module: {
 		rules: [
 			{
@@ -20,7 +21,7 @@ const config = {
 			},
 			{
 				test: /\.css$/i,
-				use: ["style-loader", "css-loader"],
+				use: [MiniCssExtractPlugin.loader, "css-loader"],
 			},
 			{
 				test: /\.(eot|svg|ttf|woff|woff2|png|jpg|gif)$/i,
