@@ -7,6 +7,7 @@ import { statsZodSchema } from "../utils/statsZodSchema";
 import { z } from "zod";
 import { BehaviorSubject, share, switchMap, timer } from "rxjs";
 import { Refresher } from "./Refresher";
+import { StatsSkeleton } from "./StatsSkeleton";
 
 const statsSubject = new BehaviorSubject<z.infer<typeof statsZodSchema> | null>(null);
 const observable = timer(0, 5_000).pipe(
@@ -32,8 +33,7 @@ const useStats = () => {
 export function Stats() {
 	const stats = useStats();
 
-	// TODO: prepare skeleton component
-	if (!stats) return <div>Loading stats...</div>;
+	if (!stats) return <StatsSkeleton />;
 
 	return <StatsRenderer stats={stats} />;
 }
