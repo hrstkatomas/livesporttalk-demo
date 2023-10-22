@@ -1,4 +1,4 @@
-import { StatisticType } from "./statisticsGeneratorDefinitions";
+import { StatType } from "./statsGeneratorDefinitions";
 
 export interface Stat {
 	id: number;
@@ -10,6 +10,6 @@ export interface Stat {
 export interface StatsGeneratorInput {
 	id: number;
 	name: string;
-	type: StatisticType;
+	type: StatType;
 	range: number;
 }

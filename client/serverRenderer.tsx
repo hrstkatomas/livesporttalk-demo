@@ -1,6 +1,6 @@
 import React from "react";
 import { renderToString } from "react-dom/server";
-import { StatisticsProps, StatisticsRenderer } from "./components/Statistics";
+import { StatsProps, StatsRenderer } from "./components/Stats";
 
 let buffer = "";
 
@@ -9,11 +9,11 @@ process.stdin.on("data", (data) => {
 });
 
 process.stdin.on("end", () => {
-	const props = JSON.parse(buffer) as StatisticsProps;
+	const props = JSON.parse(buffer) as StatsProps;
 
 	const html = renderToString(
-		<div id={"statistics"}>
-			<StatisticsRenderer {...props} />
+		<div id={"stats"}>
+			<StatsRenderer {...props} />
 		</div>,
 	);
 

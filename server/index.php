@@ -6,12 +6,12 @@ use Symfony\Component\Process\Process;
 require __DIR__ . '/vendor/autoload.php';
 
 require_once __DIR__ . '/helpers/PageRenderer.php';
-require_once __DIR__ . '/helpers/StatisticsLoader.php';
+require_once __DIR__ . '/helpers/StatsLoader.php';
 
 //echo PageRenderer::render('<div id="root"></div>',["/dist/index.js"], ["/dist/index.css"]);
 
-$statistics = StatisticsLoader::load();
-$props = json_encode(["statistics" => $statistics]);
+$stats = StatsLoader::load();
+$props = json_encode(["stats" => $stats]);
 
 $path = __DIR__ . '/dist/serverRenderer.js';
 $process = Process::fromShellCommandline(command: "node {$path}", input: $props);

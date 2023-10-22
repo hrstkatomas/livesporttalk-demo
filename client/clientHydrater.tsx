@@ -1,6 +1,6 @@
 import React from "react";
 import { hydrateRoot } from "react-dom/client";
-import { StatisticsHydrating, StatisticsProps } from "./components/Statistics";
+import { StatsHydrating, StatsProps } from "./components/Stats";
 
-const props = (window as any).props as StatisticsProps;
-hydrateRoot(document.getElementById("statistics")!, <StatisticsHydrating {...props} />);
+const props = (window as any).props as StatsProps;
+hydrateRoot(document.getElementById("stats")!, <StatsHydrating {...props} />);

@@ -1,29 +1,29 @@
 import { Stat, StatsGeneratorInput } from "./types";
-import { statisticsGeneratorDefinitions, StatisticType } from "./statisticsGeneratorDefinitions";
+import { statsGeneratorDefinitions, StatType } from "./statsGeneratorDefinitions";
 
 const generateRandomValue = (range: number): number => {
 	// Possible improvement, use geometric distribution to generate random values
 	return Math.random() * range;
 };
 
-function statisticsGenerator(inputs: StatsGeneratorInput[]): Stat[] {
+function statsGenerator(inputs: StatsGeneratorInput[]): Stat[] {
 	return inputs.map(({ type, range, ...commons }) => {
 		switch (type) {
-			case StatisticType.COUNT:
+			case StatType.COUNT:
 				return {
 					...commons,
 					homeValue: Math.floor(generateRandomValue(range)).toString(),
 					awayValue: Math.floor(generateRandomValue(range)).toString(),
 				};
 
-			case StatisticType.FLOAT:
+			case StatType.FLOAT:
 				return {
 					...commons,
 					homeValue: generateRandomValue(range).toFixed(2),
 					awayValue: generateRandomValue(range).toFixed(2),
 				};
 
-			case StatisticType.PERCENTAGE: {
+			case StatType.PERCENTAGE: {
 				const randomValue = Math.floor(generateRandomValue(range));
 
 				return {
@@ -36,6 +36,6 @@ function statisticsGenerator(inputs: StatsGeneratorInput[]): Stat[] {
 	});
 }
 
-export function getRandomStatistics(): Stat[] {
-	return statisticsGenerator(statisticsGeneratorDefinitions);
+export function getRandomStats(): Stat[] {
+	return statsGenerator(statsGeneratorDefinitions);
 }
