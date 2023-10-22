@@ -17,24 +17,4 @@ if ($_SERVER['REQUEST_URI'] == "/api/stats") {
     exit;
 }
 
-//echo PageRenderer::render('<div id="root"></div>',["/dist/index.js"], ["/dist/index.css"]);
-
-$props = json_encode(["stats" => $stats]);
-
-$path = __DIR__ . '/dist/serverRenderer.js';
-$process = Process::fromShellCommandline(command: "node {$path}", input: $props);
-$process->run();
-
-if (!$process->isSuccessful()) {
-    echo $process->getExitCode();
-    echo $process->getErrorOutput();
-    exit;
-}
-
-$html = <<<EOQ
-    {$process->getOutput()}
-    <script type="text/javascript">
-        var props = {$props};
-    </script>
-EOQ;
-echo PageRenderer::render($html, ["/dist/clientHydrater.js"], ["/dist/index.css"]);
+echo PageRenderer::render('<div id="root"></div>',["/dist/index.js"], ["/dist/index.css"]);
