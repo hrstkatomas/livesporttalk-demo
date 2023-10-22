@@ -2,17 +2,16 @@ import React, { useEffect } from "react";
 import { Statistics } from "@flashscore/web-component-library";
 import "@flashscore/web-component-library/index.css";
 import "@flashscore/web-component-library/colorVariables.css";
-import { requestStats } from "../mocks/statsApi/api";
 import { statsZodSchema } from "../utils/statsZodSchema";
 import { z } from "zod";
-import { BehaviorSubject, share, switchMap, timer } from "rxjs";
+import { BehaviorSubject, interval, share, switchMap } from "rxjs";
 import { Refresher } from "./Refresher";
 import { StatsSkeleton } from "./StatsSkeleton";
 
 const statsSubject = new BehaviorSubject<z.infer<typeof statsZodSchema> | null>(null);
-const observable = timer(0, 5_000).pipe(
+const observable = interval(5_000).pipe(
 	switchMap(() =>
-		requestStats()
+		fetch("/api/stats")
 			.then((response) => response.json())
 			.then((response) => statsZodSchema.parseAsync(response)),
 	),
