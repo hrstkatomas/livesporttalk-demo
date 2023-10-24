@@ -145,6 +145,9 @@ final class StatsApi
             }
         }
 
+        // simulate database lookup and heavy processing
+        sleep(1);
+
         return $stats;
     }
 }
