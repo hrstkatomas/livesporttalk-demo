@@ -6,7 +6,7 @@ const isProduction = process.env.NODE_ENV === "production";
 const config = {
 	entry: {
 		index: "./client/index.tsx",
-		clientHydrater: "./client/clientHydrater.tsx",
+		client: "./client/client.tsx",
 	},
 	output: {
 		path: path.resolve(__dirname, "dist"),
@@ -36,13 +36,15 @@ const config = {
 const ssrConfig = {
 	...config,
 	entry: {
-		serverRenderer: "./client/serverRenderer.tsx",
+		server: "./client/server.tsx",
 	},
 	target: "node",
 };
 
 module.exports = () => {
 	const configs = [config, ssrConfig];
-	configs.forEach((config) => (config.mode = isProduction ? "production" : "development"));
+	configs.forEach(
+		(config) => (config.mode = isProduction ? "production" : "development"),
+	);
 	return configs;
 };
