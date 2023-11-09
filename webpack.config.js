@@ -6,7 +6,6 @@ const isProduction = process.env.NODE_ENV === "production";
 const config = {
 	entry: {
 		index: "./client/index.tsx",
-		client: "./client/client.tsx",
 	},
 	output: {
 		path: path.resolve(__dirname, "dist"),
