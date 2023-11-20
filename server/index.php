@@ -18,4 +18,17 @@ if ($_SERVER['REQUEST_URI'] == "/api/stats") {
     exit;
 }
 
-echo PageRenderer::render('<div id="root"></div>', ["/dist/index.js"], ["/dist/index.css"]);
+$prop = json_encode(["stats" => $stats]);
+
+// node
+$process = Process::fromShellCommandline(command: "node " . __DIR__ . "/dist/server.js", input: $prop);
+$process->run();
+$html = <<<HTML
+    {$process->getOutput()}
+    <script>
+        window.props = {$prop};
+    </script>
+HTML;
+
+
+echo PageRenderer::render($html, ["/dist/index.js"], ["/dist/index.css"]);
